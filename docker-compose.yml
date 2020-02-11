@@ -7,26 +7,27 @@ services:
     container_name: 'php-${PROJECT_NAME}'
     restart: 'always'
     ports:
-      - ${PORT_PHP_HTTP-8080}:80
-      - ${PORT_PHP_SSL-443}:443
+      - ${PORT_PHP_HTTP}:80
+      - ${PORT_PHP_SSL}:443
     links:
       - mysql
     volumes:
-      - ${DOCUMENT_ROOT-./www}:/var/www/html
-      - ${PHP_INI-./config/${PROJECT_ENV}/php/php.ini}:/usr/local/etc/php/php.ini
-      - ${VHOSTS_DIR-./config/${PROJECT_ENV}/vhosts}:/etc/apache2/sites-enabled
-      - ${LOG_DIR-./logs/${PROJECT_ENV}/apache2}:/var/log/apache2
+      - ${DOCUMENT_ROOT}/example1.com:/var/www/html/example1.com:cached
+      - ${DOCUMENT_ROOT}/example2.com:/var/www/html/example2.com:cached
+      - ${PHP_INI}:/usr/local/etc/php/php.ini
+      - ${VHOSTS_DIR}:/etc/apache2/sites-available
+      - ${APACHE_LOG_DIR}:/var/log/apache2
   mysql:
     build: bin/${PROJECT_ENV}/mysql
     container_name: 'mysql-${PROJECT_NAME}'
     restart: 'always'
     ports:
-      - ${PORT_MYSQL-33061}:3306
+      - ${PORT_MYSQL}:3306
     volumes:
-      - ${MYSQL_DATA_DIR-./data/${PROJECT_ENV}/mysql}:/var/lib/mysql
-      - ${MYSQL_LOG_DIR-./logs/${PROJECT_ENV}/mysql}:/var/log/mysql
+      - ${MYSQL_DATA_DIR}:/var/lib/mysql
+      - ${MYSQL_LOG_DIR}:/var/log/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD-root}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
@@ -39,11 +40,11 @@ services:
       PMA_HOST: mysql
       PMA_PORT: ${PORT_MYSQL}
     ports:
-      - ${PORT_PHPMYADMIN-8090}:80
+      - ${PORT_PHPMYADMIN}:80
     volumes:
       - /sessions
   redis:
     container_name: 'redis-${PROJECT_NAME}'
     image: redis:latest
     ports:
-      - ${PORT_REDIS-6379}:6379
+      - ${PORT_REDIS}:6379

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LAMP STACK</title>
-    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <link rel="stylesheet" href="assets/css/style.min.css?cb=<?php echo time(); ?>">
 </head>
 <body>
 
@@ -12,6 +12,7 @@
     <div class="body">
         <h1 class="title">LAMP STACK</h1>
         <h2 class="subtitle">Your local development environment</h2>
+        <h1 class="title mt-5">example2.com</h1>
     </div>
 </section>
 

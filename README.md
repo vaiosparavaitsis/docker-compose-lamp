@@ -99,6 +99,8 @@ To use this stack properly you need a `.env` file in the root. Just copy and pas
 
 ***Remember:** Docker will always load by default the `.env` file, in order to change that run the `--env-file` flag or add the `env_file` parameter in your `docker-compose.yml` container configuration*
 
+***Note:** Do not put and commit secrets to your `.env` files*
+
 More referenced here: https://docs.docker.com/compose/environment-variables/
 
 ## Configure the docker-compose.yml
@@ -116,6 +118,20 @@ $ docker-compose -f docker-compose.prod.yml down
 ```
 
 ***Remember:** Docker will always load by default the `docker-compose.yml` if you don't specify the `-f` flag*
+
+## Changing docker installation
+
+You can also add docker inside your `www` project to run, just add the docker project to your root of your project and change the `DOCUMENT_ROOT` to where your project root is located. In our example will be `../`
+
+## Templating - TODO
+
+Currently there is no templating so in order to create blocks change the following
+
+Got to and add `/config/{your_env}/vhosts/example.com.conf` then add your configuration
+
+Add a volume to your php container inside `docker-compose.yml` like this `- ${DOCUMENT_ROOT}/example.com:/var/www/html/example.com:cached`
+
+Add your project to `www` as `example.com` your project root
 
 ## Web Server
 

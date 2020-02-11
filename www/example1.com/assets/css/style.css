@@ -83,3 +83,7 @@ hr {
 .informations .content .error {
     color: #F0706A;
 }
+
+.mt-5 {
+    margin-top: 3em;
+}
